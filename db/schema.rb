@@ -10,9 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_06_21_143600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.string "url_article"
+    t.string "photo"
+    t.string "content"
+    t.datetime "date"
+    t.string "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cinemas", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "photo"
+    t.integer "number_of_seats"
+    t.string "description"
+    t.string "url_cinema"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "cinema_id"
+    t.string "content"
+    t.string "user_name"
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cinema_id"], name: "index_reviews_on_cinema_id"
+  end
+
+  add_foreign_key "reviews", "cinemas"
 end
