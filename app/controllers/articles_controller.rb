@@ -4,7 +4,7 @@
       @articles = Article.tagged_with(params[:tag])
     else
       @articles = Article.all
-    end   # GET /restaurants
+    end # GET /restaurants
   end
 
   def show
