@@ -1,10 +1,15 @@
  class ArticlesController < ApplicationController
   def index
-    @articles = Article.all         # GET /restaurants
+    if params[:tag].present?
+      @articles = Article.tagged_with(params[:tag])
+    else
+      @articles = Article.all
+    end      # GET /restaurants
   end
 
   def show
-    @article = Article.find(params[:id])         # GET /restaurants/:id
+    @article = Article.find(params[:id])
+    @related_articles = @article.find_related_tags        # GET /restaurants/:id
   end
 
   def new
@@ -42,6 +47,6 @@
   def article_params
     # *Strong params*: You need to *whitelist* what can be updated by the user
     # Never trust user data!
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :tag_list)
   end
 end

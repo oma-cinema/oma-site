@@ -1,6 +1,13 @@
 <h2><%= @article.title %></h2>
 <p><%= @article.content %></p>
 
+<h3>Related Articles</h3>
+<ul>
+  <% @related_articles.each do |r| %>
+    <li><%= r.title %></li>
+  <% end %>
+</ul>
+
 <%= link_to "Delete", article_path(@article),
       method: :delete,
       data: { confirm: "Are you sure?" } %>
